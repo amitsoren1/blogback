@@ -239,12 +239,12 @@ def Register(request):
                         "email":request.data.get("email"),
                         "password":request.data.get("password"),
                         }
-        response = requests.post("http://127.0.0.1:8000/users/",data=credentials)
+        response = requests.post("http://pubgapi.pythonanywhere.com/users/",data=credentials)
         response_data = response.json()
         User = get_user_model()
         user = User.objects.filter(username=response_data["username"]).first()
         credentials = {"username":request.data.get("username"),"password":request.data.get("password")}
-        response = requests.post("http://127.0.0.1:8000/rest-auth/login/",data=credentials)
+        response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
         response_data = response.json()
         print(user)
         response_data["username"] = user.username
@@ -313,7 +313,7 @@ def Profile_Detail(request):
         credentials = {"username":request.data.get("username"),
                         "password":request.data.get("password"),
                         }
-        response = requests.post("http://127.0.0.1:8000/rest-auth/login/",data=credentials)
+        response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
         response_data = response.json()
         response = {}
         response["token"] = response_data["key"]
