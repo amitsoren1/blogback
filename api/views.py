@@ -12,6 +12,7 @@ import requests
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import UpdatePicSerializer
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 from .signals import get_url
@@ -313,11 +314,21 @@ def Profile_Detail(request):
         credentials = {"username":request.data.get("username"),
                         "password":request.data.get("password"),
                         }
-        response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
-        response_data = response.json()
+        user = authenticate(username=credentials["username"], password=credentials["password"])
+        print(user)
+        # User = get_user_model()
+        # temp_user = User(username="temp",email="temp@email.com")
+        # temp_user.set_password(credentials["password"])
+        # user = User.objects.filter(username=credentials["username"]).first()
+        # print(user.password,temp_user.password)
+        token = Token.objects.filter(user=user).first()
+        # response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
+        if token is None:
+            return Response({"credentials":"wrong"},status=status.HTTP_401_UNAUTHORIZED)       
+        # response_data = response.json()
         response = {}
-        response["token"] = response_data["key"]
-        user = Token.objects.filter(key=response_data["key"]).first().user
+        response["token"] = token.key
+        # user = Token.objects.filter(key=response_data["key"]).first().user
         response["username"] = user.username
         response["avatar"] = get_url(user.profile)
         print(response)
