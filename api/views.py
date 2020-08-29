@@ -240,10 +240,13 @@ def Register(request):
                         "email":request.data.get("email"),
                         "password":request.data.get("password"),
                         }
-        response = requests.post("http://pubgapi.pythonanywhere.com/users/",data=credentials)
-        response_data = response.json()
+        # response = requests.post("http://pubgapi.pythonanywhere.com/users/",data=credentials)
+        # response_data = response.json()
         User = get_user_model()
-        user = User.objects.filter(username=response_data["username"]).first()
+        # user = User.objects.filter(username=response_data["username"]).first()
+        user = User.objects.create(username=credentials["username"],email=credentials["email"])
+        user.set_password(credentials["password"])
+        user.save()
         credentials = {"username":request.data.get("username"),"password":request.data.get("password")}
         token = Token.objects.filter(user=user).first()
         # response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
