@@ -245,11 +245,12 @@ def Register(request):
         User = get_user_model()
         user = User.objects.filter(username=response_data["username"]).first()
         credentials = {"username":request.data.get("username"),"password":request.data.get("password")}
-        response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
-        response_data = response.json()
+        token = Token.objects.filter(user=user).first()
+        # response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
+        response_data = {}
         print(user)
         response_data["username"] = user.username
-        response_data["token"] = response_data["key"]
+        response_data["token"] = token.key
         from .models import Profile
         profile = Profile(user=user)
         profile.save()
