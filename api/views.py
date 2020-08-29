@@ -249,6 +249,8 @@ def Register(request):
         user.save()
         credentials = {"username":request.data.get("username"),"password":request.data.get("password")}
         token = Token.objects.filter(user=user).first()
+        if token is None:
+            token = Token.objects.create(user=user)
         # response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
         response_data = {}
         print(user)
