@@ -23,6 +23,7 @@ def update_or_create_avatar_link(sender, instance, created, **kwargs):
     pload = {'username':instance.user.username,'avatar':url}
     try:
         r = requests.post('https://middlechat.herokuapp.com/update-pic',data = pload)
+        print(r)
     except:
         pass
     # print(r.text)
