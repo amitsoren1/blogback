@@ -356,7 +356,7 @@ class UpdatePicAPIView(APIView):
             # return redirect(f"http://127.0.0.1:3000/profile/{user.username}")
             # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        usermodel = get_user_model
+        usermodel = get_user_model()
         user = usermodel.objects.get(username="amit12")
         profile=user.profile
         profile.profile_pic = request.data.get("pic")
