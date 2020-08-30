@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import UpdatePicSerializer
 from django.contrib.auth import authenticate, login
-
+from django.shortcuts import redirect
 # Create your views here.
 from .signals import get_url
 
@@ -353,5 +353,6 @@ class UpdatePicAPIView(APIView):
         serializer = UpdatePicSerializer(user.profile,data=request.data)
         if serializer.is_valid():
             serializer.save()
+            return redirect("https://www.google.com")
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
