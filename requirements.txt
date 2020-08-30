@@ -6,6 +6,7 @@ django-braces==1.14.0
 django-cors-headers==3.4.0
 django-rest-auth==0.9.5
 djangorestframework==3.11.1
+gunicorn==20.0.4
 idna==2.10
 Js2Py==0.70
 Pillow==7.2.0
