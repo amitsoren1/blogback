@@ -353,6 +353,7 @@ class UpdatePicAPIView(APIView):
         serializer = UpdatePicSerializer(user.profile,data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return redirect("https://www.google.com")
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return redirect(f"http://127.0.0.1:3000/profile/{user.username}")
+            # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return redirect(f"http://127.0.0.1:3000/profile/{user.username}")
