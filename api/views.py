@@ -359,6 +359,6 @@ class UpdatePicAPIView(APIView):
         usermodel = get_user_model()
         user = usermodel.objects.get(username="amit12")
         profile=user.profile
-        profile.profile_pic = request.data.get("pic")
+        profile.profile_pic = request.data.get("profile_pic")
         profile.save()
         return redirect(f"http://127.0.0.1:3000/profile/{user.username}")
