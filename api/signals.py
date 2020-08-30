@@ -12,7 +12,7 @@ def get_url(instance):
         print("Something is wrong")
     serializer = ProfileSerializer(obj)
     print(serializer.data)
-    url = "http://pubgapi.pythonanywhere.com/"+serializer.data.get("profile_pic")
+    url = "https://anyend.herokuapp.com/"+serializer.data.get("profile_pic")
     return url
 
 # @receiver(post_save, sender=Profile)
