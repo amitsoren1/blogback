@@ -64,6 +64,11 @@ CORS_ORIGIN_WHITELIST = (
     'youthful-snyder-b6a635.netlify.app'
 )
 
+CORS_ALLOWED_ORIGINS = [
+    'https://youthful-snyder-b6a635.netlify.app',
+    '127.0.0.1:8000',
+]
+
 ROOT_URLCONF = 'blogback.urls'
 
 TEMPLATES = [
