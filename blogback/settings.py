@@ -59,10 +59,6 @@ MIDDLEWARE = [
 #     'django.middleware.common.CommonMiddleware',
 # )
 
-CORS_ORIGIN_WHITELIST = (
-    'pubgapi.pythonanywhere.com',
-    'youthful-snyder-b6a635.netlify.app'
-)
 
 CORS_ALLOWED_ORIGINS = [
     'https://youthful-snyder-b6a635.netlify.app',
