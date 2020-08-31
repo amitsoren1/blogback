@@ -1,21 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
-from django.db import models
 from PIL import Image
-import os
-from django.conf import settings
+import os, pathlib
 
 def photo_path(instance, filename):
     basefilename, file_extension= os.path.splitext(filename)
-    print(f"/pic_folder/{instance.user.username}{file_extension}")
-    if os.path.exists(f"./pic_folder/{instance.user.username}/{instance.user.username}{file_extension}"):
-        import shutil
-        shutil.rmtree(os.path.join(settings.BASE_DIR, f"pic_folder/{instance.user.username}"))
-        # print("SSSSSSSSSSSSSSSSSS")
-        # os.remove(path = os.path.join(settings.BASE_DIR, "temp12"))#f"./pic_folder/{instance.user.username}{file_extension}")
-    else:
-        print("Folder may not exist")
+    try:
+        t=os.path.join(pathlib.Path().absolute(),"blogback","pic_folder",instance.user.username,f"{instance.user.username}{file_extension}")
+        os.remove(t)
+    except:
+        pass
     return f'pic_folder/{instance.user.username}/{instance.user.username}{file_extension}'
 
 class Profile(models.Model):
