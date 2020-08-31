@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+import os
 
 def photo_path(instance, filename):
     basefilename, file_extension= os.path.splitext(filename)
