@@ -101,14 +101,14 @@ class PostAPIView(APIView):
     def put(self,request,pk):
         if request.data.get("method") == "delete":
             post = Post.objects.get(id=pk)
-        if post is None:
-            return Response({"bad":"request"},status=status.HTTP_404_NOT_FOUND)
-        user = Token.objects.filter(key=request.data.get("token")).first().user
-        if user is None:
-            return Response({"credentials":"wrong"},status=status.HTTP_403_FORBIDDEN)
-        if user.profile == post.author:
-            post.delete()
-        return Response({"message":"Success"})
+            if post is None:
+                return Response({"bad":"request"},status=status.HTTP_404_NOT_FOUND)
+            user = Token.objects.filter(key=request.data.get("token")).first().user
+            if user is None:
+                return Response({"credentials":"wrong"},status=status.HTTP_403_FORBIDDEN)
+            if user.profile == post.author:
+                post.delete()
+            return Response({"message":"Success"})
 
         user = Token.objects.filter(key=request.data.get("token")).first().user
         if user is None:
@@ -122,17 +122,17 @@ class PostAPIView(APIView):
         return Response({"title":obj.id,"body":obj.body,
                         "author":{"username":obj.author.user.username}})
     
-    def delete(self,request,pk):
-        # print(request.data)
-        post = Post.objects.get(id=pk)
-        if post is None:
-            return Response({"bad":"request"},status=status.HTTP_404_NOT_FOUND)
-        user = Token.objects.filter(key=request.data.get("token")).first()#.user
-        # if user is None:
-            # return Response({"credentials":"wrong"},status=status.HTTP_403_FORBIDDEN)
-        # if user.profile == post.author:
-        #     post.delete()
-        return Response({"message":"Success"})
+    # def delete(self,request,pk):
+    #     # print(request.data)
+    #     post = Post.objects.get(id=pk)
+    #     if post is None:
+    #         return Response({"bad":"request"},status=status.HTTP_404_NOT_FOUND)
+    #     user = Token.objects.filter(key=request.data.get("token")).first()#.user
+    #     # if user is None:
+    #         # return Response({"credentials":"wrong"},status=status.HTTP_403_FORBIDDEN)
+    #     # if user.profile == post.author:
+    #     #     post.delete()
+    #     return Response({"message":"Success"})
 
 class Search(APIView):
     def post(self,request):
