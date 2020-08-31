@@ -3,22 +3,15 @@ from django.dispatch import receiver
 from .serializers import ProfileSerializer
 
 from .models import Profile
+import os, pathlib
+
+FILE_PATH = ""
 
 def get_url(instance):
-    # print(instance)
-    obj = Profile.objects.filter(id=instance.id).first()
-    # print(obj)
-    if obj is None:
-        print("Something is wrong")
-    serializer = ProfileSerializer(obj)
-    # print(serializer.data)
-    url = "https://pubgapi.pythonanywhere.com/"+serializer.data.get("profile_pic")
+    file_name = instance.profile_pic.path.split("/")[-1]
+    url = "https://pubgapi.pythonanywhere.com/"+"media/pic_folder/"+f"{profile.user.username}/"+file_name
     return url
 
-@receiver(pre_save, sender=Profile)
-def update_or_create_avatar_link(sender, instance, created, **kwargs):
-    print(instance.profile_pic.path)
-
 @receiver(post_save, sender=Profile)
-def update_or_create_avatar_link(sender, instance, created, **kwargs):
-    print(instance.profile_pic.path)
+def after(sender, instance, created, **kwargs):
+    print(FILE_PATH)

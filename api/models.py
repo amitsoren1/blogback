@@ -1,15 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-import os, pathlib
 
 def photo_path(instance, filename):
     basefilename, file_extension= os.path.splitext(filename)
-    try:
-        t=os.path.join(pathlib.Path().absolute(),"blogback","pic_folder",instance.user.username,f"{instance.user.username}{file_extension}")
-        os.remove(t)
-    except:
-        pass
+    # try:
+    #     t=os.path.join(pathlib.Path().absolute(),"blogback","pic_folder",instance.user.username,f"{instance.user.username}{file_extension}")
+    #     os.remove(t)
+    # except:
+    #     pass
     return f'pic_folder/{instance.user.username}/{instance.user.username}{file_extension}'
 
 class Profile(models.Model):

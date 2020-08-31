@@ -356,7 +356,9 @@ class UpdatePicAPIView(APIView):
             # return redirect(f"http://127.0.0.1:3000/profile/{user.username}")
             # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        from .signals import FILE_PATH
         profile=user.profile
+        FILE_PATH = profile.profile_pic.path
         if request.data.get("profile_pic") == None:
             return Response({"error":"no image sent"},status=status.HTTP_400_BAD_REQUEST)
         profile.profile_pic = request.data.get("profile_pic")
