@@ -11,7 +11,6 @@ from rest_framework.decorators import api_view
 import requests
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from .serializers import UpdatePicSerializer
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 # Create your views here.
@@ -341,9 +340,6 @@ def Profile_Detail(request):
         return Response(response)
 
 class UpdatePicAPIView(APIView):
-    from .models import Profile
-    serializer_class = UpdatePicSerializer
-    queryset = Profile.objects.all()
     def post(self,request):
         # print(request.data)
         token = request.data.get("token")
@@ -356,6 +352,7 @@ class UpdatePicAPIView(APIView):
             # return redirect(f"http://127.0.0.1:3000/profile/{user.username}")
             # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        profile = user.profile
         if request.data.get("profile_pic") == None:
             return Response({"error":"no image sent"},status=status.HTTP_400_BAD_REQUEST)
         profile.profile_pic = request.data.get("profile_pic")
