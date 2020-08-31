@@ -23,7 +23,7 @@ class Profile(models.Model):
     follows = models.ManyToManyField('Profile', related_name='followed_by',blank=True)
     profile_pic = models.ImageField(upload_to =photo_path , default = 'pic_folder/default.png')
 
-    '''def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         super(Profile,self).save(*args, **kwargs)
 
         img = Image.open(self.profile_pic.path)
@@ -31,7 +31,7 @@ class Profile(models.Model):
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
-            img.save(self.profile_pic.path)'''
+            img.save(self.profile_pic.path)
 
     def __str__(self):
         return f"{self.user.username}"
