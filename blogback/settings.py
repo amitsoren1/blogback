@@ -62,7 +62,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'https://youthful-snyder-b6a635.netlify.app',
-    '127.0.0.1:8000',
+    'http://127.0.0.1:3000',
 ]
 
 ROOT_URLCONF = 'blogback.urls'
