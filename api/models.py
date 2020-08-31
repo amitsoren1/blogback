@@ -12,7 +12,7 @@ def photo_path(instance, filename):
     if os.path.exists(f"./pic_folder/{instance.user.username}/{instance.user.username}{file_extension}"):
         import shutil
         shutil.rmtree(os.path.join(settings.BASE_DIR, f"pic_folder/{instance.user.username}"))
-        print("SSSSSSSSSSSSSSSSSS")
+        # print("SSSSSSSSSSSSSSSSSS")
         # os.remove(path = os.path.join(settings.BASE_DIR, "temp12"))#f"./pic_folder/{instance.user.username}{file_extension}")
     else:
         print("Folder may not exist")

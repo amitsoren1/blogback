@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '-69-a5iqtvu##!)6ug^(z6je&wen+zx)qomvzp#^-w-)wbr^q5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['anyend.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['pubgapi.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition

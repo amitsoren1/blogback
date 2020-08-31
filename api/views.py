@@ -27,7 +27,7 @@ class User(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        print(request.data)
+        # print(request.data)
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -84,7 +84,7 @@ class PostAPIView(APIView):
                     )
 
     def post(self,request):
-        print("HHHHHHHHHH")
+        # print("HHHHHHHHHH")
         user = Token.objects.filter(key=request.data.get("token")).first().user
         if user is None:
             return Response({"credentials":"wrong"},status=status.HTTP_401_UNAUTHORIZED)
@@ -123,7 +123,7 @@ class PostAPIView(APIView):
                         "author":{"username":obj.author.user.username}})
     
     def delete(self,request,pk):
-        print(request.data)
+        # print(request.data)
         post = Post.objects.get(id=pk)
         if post is None:
             return Response({"bad":"request"},status=status.HTTP_404_NOT_FOUND)
@@ -253,7 +253,7 @@ def Register(request):
             token = Token.objects.create(user=user)
         # response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
         response_data = {}
-        print(user)
+        # print(user)
         response_data["username"] = user.username
         response_data["token"] = token.key
         from .models import Profile
@@ -317,38 +317,35 @@ from django.http import HttpResponse
 @api_view(['POST'])
 def Profile_Detail(request):
     if request.method == 'POST':
-        try:
-            credentials = {"username":request.data.get("username"),
-                            "password":request.data.get("password"),
-                            }
-            user = authenticate(username=credentials["username"], password=credentials["password"])
-            print(user)
-            # User = get_user_model()
-            # temp_user = User(username="temp",email="temp@email.com")
-            # temp_user.set_password(credentials["password"])
-            # user = User.objects.filter(username=credentials["username"]).first()
-            # print(user.password,temp_user.password)
-            token = Token.objects.filter(user=user).first()
-            # response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
-            if token is None:
-                return Response({"credentials":"wrong"},status=status.HTTP_401_UNAUTHORIZED)       
-            # response_data = response.json()
-            response = {}
-            response["token"] = token.key
-            # user = Token.objects.filter(key=response_data["key"]).first().user
-            response["username"] = user.username
-            response["avatar"] = get_url(user.profile)
-            print(response)
-            return Response(response)
-        except:
-            return Response({"credentials":"wrong"},status=status.HTTP_401_UNAUTHORIZED)
+        credentials = {"username":request.data.get("username"),
+                        "password":request.data.get("password"),
+                        }
+        user = authenticate(username=credentials["username"], password=credentials["password"])
+        # print(user)
+        # User = get_user_model()
+        # temp_user = User(username="temp",email="temp@email.com")
+        # temp_user.set_password(credentials["password"])
+        # user = User.objects.filter(username=credentials["username"]).first()
+        # print(user.password,temp_user.password)
+        token = Token.objects.filter(user=user).first()
+        # response = requests.post("http://pubgapi.pythonanywhere.com/rest-auth/login/",data=credentials)
+        if token is None:
+            return Response({"credentials":"wrong"},status=status.HTTP_401_UNAUTHORIZED)       
+        # response_data = response.json()
+        response = {}
+        response["token"] = token.key
+        # user = Token.objects.filter(key=response_data["key"]).first().user
+        response["username"] = user.username
+        response["avatar"] = get_url(user.profile)
+        # print(response)
+        return Response(response)
 
 class UpdatePicAPIView(APIView):
     from .models import Profile
     serializer_class = UpdatePicSerializer
     queryset = Profile.objects.all()
     def post(self,request):
-        print(request.data)
+        # print(request.data)
         token = request.data.get("token")
         user = Token.objects.filter(key=request.data.get("token")).first().user
         if user is None:
@@ -360,6 +357,8 @@ class UpdatePicAPIView(APIView):
             # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         profile=user.profile
+        if request.data.get("profile_pic") == None:
+            return Response({"error":"no image sent"},status=status.HTTP_400_BAD_REQUEST)
         profile.profile_pic = request.data.get("profile_pic")
         profile.save()
         return Response({"avatar":get_url(profile)})

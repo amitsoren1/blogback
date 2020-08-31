@@ -7,12 +7,12 @@ from .models import Profile
 def get_url(instance):
     # print(instance)
     obj = Profile.objects.filter(id=instance.id).first()
-    print(obj)
+    # print(obj)
     if obj is None:
         print("Something is wrong")
     serializer = ProfileSerializer(obj)
-    print(serializer.data)
-    url = "https://anyend.herokuapp.com/"+serializer.data.get("profile_pic")
+    # print(serializer.data)
+    url = "https://pubgapi.pythonanywhere.com/"+serializer.data.get("profile_pic")
     return url
 
 # @receiver(post_save, sender=Profile)
