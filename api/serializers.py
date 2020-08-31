@@ -31,12 +31,3 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
-
-class UpdatePicSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ("profile_pic",)
-    def update(self, instance, validated_data):
-        instance.profile_pic = validated_data.get('profile_pic', instance.profile_pic)
-        instance.save()
-        return instance
