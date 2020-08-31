@@ -14,4 +14,5 @@ def get_url(instance):
 
 @receiver(post_save, sender=Profile)
 def after(sender, instance, created, **kwargs):
+    global FILE_PATH
     print(FILE_PATH)
