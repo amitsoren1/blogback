@@ -26,8 +26,3 @@ class UserSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = ExampleModel
 #         fields = ("model_pic",)
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = '__all__'
