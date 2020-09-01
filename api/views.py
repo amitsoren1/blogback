@@ -140,7 +140,10 @@ class Search(APIView):
         for post in posts:
             newpost = {}
             newpost["_id"] = post.id
-            newpost["author"] = {"avatar":get_url(post.author)}
+            newpost["author"] = {
+                                "avatar":get_url(post.author),
+                                "username":post.author.user.username
+                                }
             newpost["title"] = post.title
             newpost["createdDate"] = [post.created_on.year,post.created_on.month-1,post.created_on.day]
             res.append(newpost.copy())
